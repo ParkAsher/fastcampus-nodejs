@@ -12,3 +12,6 @@ content-type: application/json
     "title": "dfdf",
     "content": "dfdf"
 }
+
+###
+GET http://localhost:3000
