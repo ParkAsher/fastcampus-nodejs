@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Board } from 'src/entities/board.entity';
 import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
+import { CreateUserDto } from './dtos/create-user.dto';
 
 @Injectable()
 export class UserService {
@@ -34,5 +35,9 @@ export class UserService {
         }, 'User_boardCount');
 
         return qb.getMany();
+    }
+
+    async createUser(data: CreateUserDto) {
+        return this.userRepository.save(data);
     }
 }
