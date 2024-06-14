@@ -5,6 +5,7 @@ import { BoardModule } from './board/board.module';
 import { LoggingMiddleware } from './middlewares/logging.middleware';
 import configModule from './config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './user/user.module';
 
 @Module({
     imports: [
@@ -21,6 +22,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
             logging: true,
         }),
         BoardModule,
+        UserModule,
     ],
     controllers: [AppController],
     providers: [AppService],
