@@ -60,12 +60,8 @@ export class BoardService {
         return board;
     }
 
-    create(data: CreateBoardDto) {
-        const nextId = this.getNextId();
-        const newBoard = { id: nextId, ...data };
-
-        this.boards.push(newBoard);
-        return newBoard;
+    async create(data: CreateBoardDto) {
+        return await this.boardRepository.save(data);
     }
 
     getNextId() {
