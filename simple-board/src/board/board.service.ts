@@ -55,7 +55,7 @@ export class BoardService {
             relations: { user: true },
         });
 
-        if (!board) throw new HttpException('NotFound', HttpStatus.NOT_FOUND);
+        if (!board) throw new HttpException('NOT_FOUND', HttpStatus.NOT_FOUND);
 
         return board;
     }
@@ -64,37 +64,22 @@ export class BoardService {
         return await this.boardRepository.save(data);
     }
 
-    getNextId() {
-        return this.boards.sort((a, b) => b.id - a.id)[0].id + 1;
+    async update(id: number, data: UpdateBoardDto) {
+        console.log(id);
+        const board = await this.boardRepository.findOneBy({
+            id,
+        });
+
+        console.log(board);
+
+        if (!board) throw new HttpException('NOT_FOUND', HttpStatus.NOT_FOUND);
+
+        return await this.boardRepository.update(id, {
+            ...data,
+        });
     }
 
-    getBoardId(id: number) {
-        return this.boards.findIndex((board) => board.id === id);
-    }
-
-    update(id: number, data: UpdateBoardDto) {
-        const index = this.getBoardId(id);
-
-        if (index > -1) {
-            this.boards[index] = {
-                ...this.boards[index],
-                ...data,
-            };
-            return this.boards[index];
-        }
-
-        return null;
-    }
-
-    delete(id: number) {
-        const index = this.getBoardId(id);
-
-        if (index > -1) {
-            const deleteBoard = this.boards[index];
-            this.boards.splice(index, 1);
-
-            return deleteBoard;
-        }
-        return null;
+    async delete(id: number) {
+        return await this.boardRepository.delete(id);
     }
 }

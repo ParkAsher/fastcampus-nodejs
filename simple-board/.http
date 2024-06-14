@@ -9,9 +9,14 @@ POST http://localhost:3000/board/
 content-type: application/json
 
 {
-    "title": "dfdf",
-    "content": "dfdf"
+    "userId": 1,
+    "contents": "dfdf"
 }
 
-###
-GET http://localhost:3000
+### 게시글 수정
+PATCH http://localhost:3000/board/1
+content-type: application/json
+
+{
+    "contents": "수정글"
+}

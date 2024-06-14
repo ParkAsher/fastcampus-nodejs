@@ -5,6 +5,7 @@ import {
     Get,
     Param,
     ParseIntPipe,
+    Patch,
     Post,
     Put,
     ValidationPipe,
@@ -34,11 +35,12 @@ export class BoardController {
         return this.boardService.create(data);
     }
 
-    @Put(':id')
+    @Patch(':id')
     update(
         @Param('id', ParseIntPipe) id: number,
         @Body(new ValidationPipe()) data: UpdateBoardDto,
     ) {
+        console.log(data);
         return this.boardService.update(id, data);
     }
 
