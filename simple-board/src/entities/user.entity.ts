@@ -28,4 +28,8 @@ export class User {
     @ApiProperty({ description: '작성한 게시글' })
     @OneToMany(() => Board, (board) => board.user)
     boards: Board[];
+
+    // 실제는 없는 컬럼, 가상의 컬럼
+    @Column({ select: false, nullable: true, insert: false, update: false })
+    boardCount?: number;
 }
