@@ -40,7 +40,6 @@ export class BoardController {
         @Param('id', ParseIntPipe) id: number,
         @Body(new ValidationPipe()) data: UpdateBoardDto,
     ) {
-        console.log(data);
         return this.boardService.update(id, data);
     }
 
