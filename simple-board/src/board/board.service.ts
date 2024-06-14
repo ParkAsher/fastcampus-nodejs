@@ -1,9 +1,21 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateBoardDto } from './dtos/create-board.dto';
 import { UpdateBoardDto } from './dtos/update-board.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from 'src/entities/user.entity';
+import { Board } from 'src/entities/board.entity';
 
 @Injectable()
 export class BoardService {
+    constructor(
+        @InjectRepository(User)
+        private userRepository: Repository<User>,
+
+        @InjectRepository(Board)
+        private boardRepository: Repository<Board>,
+    ) {}
+
     // 게시판 목업데이터
     private boards = [
         {
@@ -33,14 +45,19 @@ export class BoardService {
         },
     ];
 
-    findAll() {
-        return this.boards;
+    async findAll() {
+        return await this.boardRepository.find();
     }
 
-    find(id: number) {
-        const index = this.getBoardId(id);
+    async find(id: number) {
+        const board = await this.boardRepository.findOne({
+            where: { id },
+            relations: { user: true },
+        });
 
-        return this.boards[index];
+        if (!board) throw new HttpException('NotFound', HttpStatus.NOT_FOUND);
+
+        return board;
     }
 
     create(data: CreateBoardDto) {
