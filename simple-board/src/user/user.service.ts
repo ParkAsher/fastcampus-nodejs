@@ -4,6 +4,7 @@ import { Board } from 'src/entities/board.entity';
 import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dtos/create-user.dto';
+import { hash } from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -38,6 +39,19 @@ export class UserService {
     }
 
     async createUser(data: CreateUserDto) {
-        return this.userRepository.save(data);
+        const { username, name, password } = data;
+
+        const encryptedPassword = await this.encryptPassword(password);
+
+        return this.userRepository.save({
+            username,
+            name,
+            password: encryptedPassword,
+        });
+    }
+
+    async encryptPassword(password: string) {
+        const SALT = 11;
+        return hash(password, SALT);
     }
 }
