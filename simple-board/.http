@@ -37,3 +37,12 @@ Content-Type: application/json
     "name": "asherpar2k",
     "password": "gusals8665"
 }
+
+### 로그인
+POST http://localhost:3000/user/login
+Content-Type: application/json
+
+{
+    "username": "asherpark2",
+    "password": "gusals8665"
+}
