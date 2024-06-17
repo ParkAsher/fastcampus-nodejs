@@ -55,3 +55,8 @@ Content-Type: application/json
     "username": "asherpark2",
     "password": "gusals8665"
 }
+
+###
+GET http://localhost:3000/me
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFzaGVycGFyazIiLCJuYW1lIjoiYXNoZXJwYXIyayIsImlhdCI6MTcxODU5MjM4NywiZXhwIjoxNzE4Njc4Nzg3fQ.IH5E9_1uxnKhf6K4DWBSaDPzaGFZ-JyJSF9O-_cYLfs
