@@ -46,3 +46,12 @@ Content-Type: application/json
     "username": "asherpark2",
     "password": "gusals8665"
 }
+
+### 로그인(passport)
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "username": "asherpark2",
+    "password": "gusals8665"
+}

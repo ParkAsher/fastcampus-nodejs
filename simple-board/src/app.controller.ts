@@ -4,10 +4,14 @@ import {
     HttpException,
     HttpStatus,
     Logger,
+    Post,
+    Request,
+    UseGuards,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Ip } from './decorators/ip.decorator';
 import { ConfigService } from '@nestjs/config';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller()
 export class AppController {
@@ -29,5 +33,11 @@ export class AppController {
         // console.log(ip);
         return this.appService.getHello();
         // throw new HttpException('NotFound', HttpStatus.NOT_FOUND);
+    }
+
+    @UseGuards(AuthGuard('local'))
+    @Post('login')
+    async login(@Request() req) {
+        return req.user;
     }
 }

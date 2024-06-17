@@ -57,6 +57,12 @@ export class UserService {
         return hash(password, SALT);
     }
 
+    async getUserByUsername(username: string) {
+        return this.userRepository.findOneBy({
+            username,
+        });
+    }
+
     async login(data: LoginUserDto) {
         // 유저 존재 확인
         const { username, password } = data;
