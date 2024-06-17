@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { hash, compare } from 'bcrypt';
 import { LoginUserDto } from './dtos/login-user.dto';
+import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class UserService {
@@ -71,6 +72,15 @@ export class UserService {
         if (!match)
             throw new HttpException('UNAUTHORIZED', HttpStatus.UNAUTHORIZED);
 
-        return user;
+        const payload = {
+            username,
+            name: user.name,
+        };
+
+        const accessToken = jwt.sign(payload, 'secret-key', {
+            expiresIn: '1d',
+        });
+
+        return { accessToken };
     }
 }
